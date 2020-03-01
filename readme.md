@@ -174,3 +174,9 @@ Supported configuration keys are:
   `arduino-cli` URLs for the specific platforms.
 * Download the latest `arduino-cli` executable. Currently `0.9.0` is used.
 * Add support for building projects in different configurations, eg. debug vs release.
+* Add support for creating a project directory and sample configuration file via `build.py`; for
+  example, `build.py --project newProject makeproj`.
+* Refactor scripts so that `--project` is not required unless explicitly needed by the commands
+  being executed. For example, the `upload` command currently requires the project to be specified
+  in order to get the `fqbn` for that project; instead, the project config should be copied to the
+  build directory when `build` is executed, and `upload` should look for this in a known place.
