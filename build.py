@@ -23,7 +23,6 @@ def parseArguments():
 	parser = argparse.ArgumentParser("build.py", description="Builds the specified project")
 
 	parser.add_argument("-p", "--project",
-						required=True,
 						help="Project to perform tasks for.")
 
 	parser.add_argument("--port",
@@ -41,7 +40,7 @@ def parseArguments():
 	return parser.parse_args()
 
 def validateArgs(args):
-	if not projects.isValidProject(args.project):
+	if args.project is not None and not projects.isValidProject(args.project):
 		raise ValueError(f"Project '{args.project}' does not exist.")
 
 def main():
@@ -50,7 +49,6 @@ def main():
 	Globals.invokedArgs = parseArguments()
 	validateArgs(Globals.invokedArgs)
 
-	Globals.projectConfig = projects.loadProjectConfig()
 	buildDir.ensureBuildDirExists()
 
 	for task in Globals.invokedArgs.tasks:

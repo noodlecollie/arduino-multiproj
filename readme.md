@@ -86,16 +86,16 @@ Available commands are:
 * `upload`: Uploads to a device connected to the computer on the port specified by `--port`.
 
 Available options are:
-* `-p/--project`: Always required. Specifies which project to run the specified commands for.
+* `-p/--project`: Only required when calling `build`. Specifies which project to run the specified
+  commands for.
 * `--port`: Only required when calling `upload`. Specifies the serial port on which the target
   device is connected, eg. `COM3`.
 
 ### A Note On .ino Files
 
 The project's `.ino` file is generated automatically by the build scripts. This is in order
-to help keep include paths consistent between all files used in a project, because at the
-time of writing I cannot find a nice way of providing extra include paths to the `arduino-cli`
-executable without overwriting the existing compiler flags that it uses.
+to help keep include paths consistent between all files used in a project, while also
+keeping the compiler invocations mininal and avoiding things like custom include paths.
 
 As an example, if the `myProject.ino` above were written by hand, the include path for
 `SharedModule1.h` would need to be:
@@ -176,7 +176,3 @@ Supported configuration keys are:
 * Add support for building projects in different configurations, eg. debug vs release.
 * Add support for creating a project directory and sample configuration file via `build.py`; for
   example, `build.py --project newProject makeproj`.
-* Refactor scripts so that `--project` is not required unless explicitly needed by the commands
-  being executed. For example, the `upload` command currently requires the project to be specified
-  in order to get the `fqbn` for that project; instead, the project config should be copied to the
-  build directory when `build` is executed, and `upload` should look for this in a known place.
