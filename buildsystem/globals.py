@@ -1,3 +1,4 @@
 class Globals():
 	rootPath : str = ""
-	invokedArgs: None
+	invokedArgs = None
+	debugBuild : bool = False

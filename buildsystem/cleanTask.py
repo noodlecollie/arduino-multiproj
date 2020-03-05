@@ -23,7 +23,6 @@ def __getPathsToClean():
 
 	for root, _, filenames in os.walk(buildPath):
 		for filename in filenames:
-			print(filename)
 			if os.path.splitext(filename)[1] in EXTS_TO_CLEAN:
 				paths.append(os.path.join(root, filename))
 

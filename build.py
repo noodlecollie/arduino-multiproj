@@ -16,13 +16,19 @@ TASK_CALLBACKS = \
 	"upload": uploadTask
 }
 
+BUILD_TYPES = \
+[
+	"release",
+	"debug"
+]
+
 def scriptDirPath():
 	return os.path.dirname(os.path.realpath(__file__))
 
 def parseArguments():
 	parser = argparse.ArgumentParser("build.py", description="Builds the specified project")
 
-	parser.add_argument("-p", "--project",
+	parser.add_argument("--project",
 						help="Project to perform tasks for.")
 
 	parser.add_argument("--port",
@@ -31,6 +37,11 @@ def parseArguments():
 	parser.add_argument("--stack",
 						action="store_true",
 						help="If true, fatal exceptions will be logged so that the stack trace is visible.")
+
+	parser.add_argument("--build-type",
+						choices=BUILD_TYPES,
+						default=BUILD_TYPES[0],
+						help=f"Type of build to perform. Default is '{BUILD_TYPES[0]}'.")
 
 	parser.add_argument("tasks",
 						nargs="*",
@@ -49,6 +60,7 @@ def main():
 	Globals.invokedArgs = parseArguments()
 	validateArgs(Globals.invokedArgs)
 
+	Globals.debugBuild = Globals.invokedArgs.build_type == "debug"
 	buildDir.ensureBuildDirExists()
 
 	for task in Globals.invokedArgs.tasks:

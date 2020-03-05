@@ -86,8 +86,11 @@ Available commands are:
 * `upload`: Uploads to a device connected to the computer on the port specified by `--port`.
 
 Available options are:
-* `-p/--project`: Only required when calling `build`. Specifies which project to run the specified
+* `--project`: Only required when calling `build`. Specifies which project to run the specified
   commands for.
+* `--build-type`: Optional, only applies to `build`. Specifies the type of build to perform:
+  `release` or `debug`. The default is `release`. In `debug`, the `DEBUG` preprocessor symbol
+  is defined.
 * `--port`: Only required when calling `upload`. Specifies the serial port on which the target
   device is connected, eg. `COM3`.
 
@@ -173,6 +176,5 @@ Supported configuration keys are:
 * Support more platforms than Windows. This would just require adding the relevant
   `arduino-cli` URLs for the specific platforms.
 * Download the latest `arduino-cli` executable. Currently `0.9.0` is used.
-* Add support for building projects in different configurations, eg. debug vs release.
 * Add support for creating a project directory and sample configuration file via `build.py`; for
   example, `build.py --project newProject makeproj`.

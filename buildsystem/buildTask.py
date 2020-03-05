@@ -7,6 +7,12 @@ from . import buildDir
 from .globals import Globals
 from .buildOutput import updateFilesInBuildFolder
 
+def __getCustomDefines():
+	if Globals.debugBuild:
+		return "-DDEBUG"
+	else:
+		return ""
+
 def __createCompileCallArgs():
 	projectConfig = projects.loadProjectConfig(buildDir.buildDirProjectConfigPath())
 
@@ -21,6 +27,8 @@ def __createCompileCallArgs():
 		projectConfig.fqbn,
 		"--warnings",
 		projectConfig.warningLevel,
+		"--build-properties",
+		"build.defines=" + __getCustomDefines(),
 		buildDir.projectBuildDirPath(projectConfig.name)
 	]
 
